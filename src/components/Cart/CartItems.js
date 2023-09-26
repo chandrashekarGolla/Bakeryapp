@@ -3,27 +3,28 @@ import './CartItems.css';
 import { MdRemoveShoppingCart } from 'react-icons/md';
 import { FaRupeeSign } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
+import { useCart } from '../CartContext';
 import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function CartItems() {
   const { user } = useAuth();
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { cartItems, removeItemFromCart, totalPrice } = useCart(); // Use values from the context
 
   useEffect(() => {
     if (user) {
       const cartItemsRef = collection(db, 'usersCollection', user.uid, 'cartItems');
       const unsubscribe = onSnapshot(cartItemsRef, (snapshot) => {
         let items = [];
-        let totalPrice = 0;
+        let total = 0;
+
         snapshot.forEach((doc) => {
           const item = doc.data();
           items.push({ id: doc.id, ...item });
-          totalPrice += parseFloat(item.price);
+          total += parseFloat(item.price);
         });
-        setCartItems(items);
-        setTotalPrice(totalPrice);
+
+        // You don't need to setCartItems and setTotalPrice here anymore
       });
 
       return () => unsubscribe();
@@ -32,8 +33,9 @@ export default function CartItems() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      const itemRef = doc(db, 'usersCollection', user.uid, 'cartItems', itemId);
-      await deleteDoc(itemRef);
+      // Call the removeItemFromCart function from the CartContext
+      removeItemFromCart(itemId);
+      // ... Other code for Firebase deletion if needed ...
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }
@@ -67,4 +69,3 @@ export default function CartItems() {
     </div>
   );
 }
-

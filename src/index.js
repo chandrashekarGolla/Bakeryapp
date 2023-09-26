@@ -5,12 +5,15 @@ import App from './App';
 
 // import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './components/AuthContext';
+import { CartProvider } from './components/CartContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <App/>
   <React.StrictMode>
   <AuthProvider> {/* Wrap your entire app with AuthProvider */}
-    <App />
+    <CartProvider> <App />
+    </CartProvider>
+   
   </AuthProvider>
 </React.StrictMode>,
     

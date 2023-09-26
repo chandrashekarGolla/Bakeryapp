@@ -6,6 +6,7 @@ import Cake from '../Images/cake.jpeg'
 import { toast, Toaster } from "react-hot-toast";
 import "./Price.css";
 import { useAuth } from "../AuthContext";
+import { useCart } from "../CartContext";
 import { collection, doc, getDoc, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 export default function Price() {
@@ -25,9 +26,54 @@ export default function Price() {
 
   const { user } = useAuth();
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { addItemToCart } = useCart();
   const navigate = useNavigate();
 
   const [mainImage, setMainImage] = useState(image);
+
+  // const addToCart = async () => {
+  //   if (!user) {
+  //     // Redirecting to the login page if the user is not logged in
+  //     navigate("/login");
+  //     return;
+  //   }
+  //   if (!deliveryDate) {
+  //     toast.error("Please choose a delivery date.");
+  //     return;
+  //   }
+
+  //   if (type !== "Cupcake" && weight === 0) {
+  //     toast.error("Please select the weight.");
+  //     return;
+  //   }
+  //   const itemid = Math.floor(Math.random() * 100);
+  //   console.log(itemid);
+    
+  //   try {
+  //     const cartRef = doc(db, 'usersCollection', user.uid, 'cartItems', itemid.toString());
+  //     const itemDoc = await getDoc(cartRef);
+  //     const itemExists = itemDoc.exists();
+
+  //     if (itemExists) {
+  //       const existingItem = itemDoc.data();
+  //       const newQuantity = existingItem.quantity + 1;
+  //       await updateDoc(cartRef, { quantity: newQuantity });
+  //     } else {
+  //       await setDoc(cartRef, {
+  //         image,
+  //         price,
+  //         name,
+  //         quantity: 1,
+  //       });
+  //     }
+
+  //     setItemStatus(true);
+  //     toast.success('Item added to cart');
+  //     console.log('Item added to cart');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const addToCart = async () => {
     if (!user) {
@@ -44,49 +90,42 @@ export default function Price() {
       toast.error("Please select the weight.");
       return;
     }
-    const itemid = Math.floor(Math.random() * 100);
-    console.log(itemid);
     
     try {
-      const cartRef = doc(db, 'usersCollection', user.uid, 'cartItems', itemid.toString());
-      const itemDoc = await getDoc(cartRef);
-      const itemExists = itemDoc.exists();
+      // Create an item object with the item details
+      const item = {
+        id: Math.floor(Math.random() * 100).toString(),
+        image,
+        price,
+        name,
+        quantity: 1,
+      };
+      
+      console.log(item)
+      // Call the addItemToCart function from the CartContext
+      addItemToCart(item);
 
-      if (itemExists) {
-        const existingItem = itemDoc.data();
-        const newQuantity = existingItem.quantity + 1;
-        await updateDoc(cartRef, { quantity: newQuantity });
-      } else {
-        await setDoc(cartRef, {
-          image,
-          price,
-          name,
-          quantity: 1,
-        });
-      }
 
-      setItemStatus(true);
+      // Display a success message or provide feedback to the user
       toast.success('Item added to cart');
-      console.log('Item added to cart');
     } catch (error) {
       console.error(error);
     }
   };
+  // useEffect(() => {
+  //   if (user) {
+  //     const cartRef = collection(db, 'usersCollection', user.uid, 'cartItems');
+  //     const unsubscribe = onSnapshot(cartRef, (snapshot) => {
+  //       let totalCount = 0;
+  //       snapshot.forEach((doc) => {
+  //         totalCount += doc.data().quantity;
+  //       });
+  //       setCartItemsCount(totalCount);
+  //     });
 
-  useEffect(() => {
-    if (user) {
-      const cartRef = collection(db, 'usersCollection', user.uid, 'cartItems');
-      const unsubscribe = onSnapshot(cartRef, (snapshot) => {
-        let totalCount = 0;
-        snapshot.forEach((doc) => {
-          totalCount += doc.data().quantity;
-        });
-        setCartItemsCount(totalCount);
-      });
-
-      return () => unsubscribe();
-    }
-  }, [user]);
+  //     return () => unsubscribe();
+  //   }
+  // }, [user]);
 
 
   //to display side images for main image
