@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import './CartItems.css';
 import { MdRemoveShoppingCart } from 'react-icons/md';
 import { FaRupeeSign } from 'react-icons/fa';
 import { useAuth } from '../AuthContext';
 import { useCart } from '../CartContext';
-import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function CartItems() {
@@ -15,16 +15,7 @@ export default function CartItems() {
     if (user) {
       const cartItemsRef = collection(db, 'usersCollection', user.uid, 'cartItems');
       const unsubscribe = onSnapshot(cartItemsRef, (snapshot) => {
-        let items = [];
-        let total = 0;
-
-        snapshot.forEach((doc) => {
-          const item = doc.data();
-          items.push({ id: doc.id, ...item });
-          total += parseFloat(item.price);
-        });
-
-        // You don't need to setCartItems and setTotalPrice here anymore
+        // You don't need local state for cartitems and totalprice anymore
       });
 
       return () => unsubscribe();

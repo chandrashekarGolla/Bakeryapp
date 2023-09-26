@@ -1,4 +1,3 @@
-// CartContext.js
 import { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
@@ -12,16 +11,16 @@ export function CartProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const addItemToCart = (item) => {
-    const existingItemIndex = cartItems.findIndex((cartItem) => cartItem.id === item.id);
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
-    if (existingItemIndex !== -1) {
-      // Item already exists, update quantity
-      const updatedCartItems = [...cartItems];
-      updatedCartItems[existingItemIndex].quantity += 1;
+    if (existingItem) {
+      // If the item already exists, update its quantity
+      const updatedCartItems = cartItems.map((cartItem) =>
+        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+      );
       setCartItems(updatedCartItems);
     } else {
-      // Item doesn't exist, add it to the cart
-      console.log("item added in context")
+      // If the item doesn't exist, add it to the cart
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
 
@@ -33,14 +32,13 @@ export function CartProvider({ children }) {
 
     if (itemToRemove) {
       if (itemToRemove.quantity > 1) {
-        // Decrease quantity if more than 1
-        const updatedCartItems = [...cartItems];
-        const itemIndex = updatedCartItems.findIndex((item) => item.id === itemId);
-        updatedCartItems[itemIndex].quantity -= 1;
+        // If the item's quantity is greater than 1, decrease it
+        const updatedCartItems = cartItems.map((cartItem) =>
+          cartItem.id === itemId ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+        );
         setCartItems(updatedCartItems);
       } else {
-        // Remove the item if quantity is 1
-        console.log("item removed from cart context")
+        // If the item's quantity is 1, remove it from the cart
         const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
         setCartItems(updatedCartItems);
       }
@@ -50,7 +48,7 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, totalPrice, setCartItems, setTotalPrice }}>
+    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, totalPrice }}>
       {children}
     </CartContext.Provider>
   );
