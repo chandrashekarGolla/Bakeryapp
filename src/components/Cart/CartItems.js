@@ -9,16 +9,26 @@ import { db } from '../firebase';
 
 export default function CartItems() {
   const { user } = useAuth();
-  const { cartItems, removeItemFromCart, totalPrice } = useCart(); // Use values from the context
+  const { cartItems, addItemToCart, totalPrice, removeItemFromCart } = useCart(); // Use values from the context
 
   useEffect(() => {
     if (user) {
       const cartItemsRef = collection(db, 'usersCollection', user.uid, 'cartItems');
       const unsubscribe = onSnapshot(cartItemsRef, (snapshot) => {
-        // You don't need local state for cartitems and totalprice anymore
+        const updatedCartItems = [];
+      
+        snapshot.forEach((doc) => {
+          updatedCartItems.push(doc.data());
+        });
+      
+        console.log("Updated Cart Items:", updatedCartItems);
+      
+        // Update the cart with the latest items
+        updatedCartItems.forEach((item) => {
+          addItemToCart(item);
+        });
       });
-
-      return () => unsubscribe();
+      
     }
   }, [user]);
 

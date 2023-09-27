@@ -11,19 +11,7 @@ export function CartProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const addItemToCart = (item) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
-
-    if (existingItem) {
-      // If the item already exists, update its quantity
-      const updatedCartItems = cartItems.map((cartItem) =>
-        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-      );
-      setCartItems(updatedCartItems);
-    } else {
-      // If the item doesn't exist, add it to the cart
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
-    }
-
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + parseFloat(item.price));
   };
 
@@ -33,8 +21,8 @@ export function CartProvider({ children }) {
     if (itemToRemove) {
       if (itemToRemove.quantity > 1) {
         // If the item's quantity is greater than 1, decrease it
-        const updatedCartItems = cartItems.map((cartItem) =>
-          cartItem.id === itemId ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+        const updatedCartItems = cartItems.map((item) =>
+          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
         );
         setCartItems(updatedCartItems);
       } else {
