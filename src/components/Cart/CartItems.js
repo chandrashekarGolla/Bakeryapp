@@ -1,42 +1,18 @@
-import { useEffect } from 'react';
 import './CartItems.css';
 import { MdRemoveShoppingCart } from 'react-icons/md';
 import { FaRupeeSign } from 'react-icons/fa';
-import { useAuth } from '../AuthContext';
 import { useCart } from '../CartContext';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase';
 
 export default function CartItems() {
-  const { user } = useAuth();
-  const { cartItems, addItemToCart, totalPrice, removeItemFromCart } = useCart(); // Use values from the context
+  const { cartItems,totalPrice, removeItemFromCart } = useCart(); // Use values from the context
 
-  useEffect(() => {
-    if (user) {
-      const cartItemsRef = collection(db, 'usersCollection', user.uid, 'cartItems');
-      const unsubscribe = onSnapshot(cartItemsRef, (snapshot) => {
-        const updatedCartItems = [];
-      
-        snapshot.forEach((doc) => {
-          updatedCartItems.push(doc.data());
-        });
-      
-        console.log("Updated Cart Items:", updatedCartItems);
-      
-        // Update the cart with the latest items
-        updatedCartItems.forEach((item) => {
-          addItemToCart(item);
-        });
-      });
-      
-    }
-  }, [user]);
+ 
 
   const handleDeleteItem = async (itemId) => {
     try {
       // Call the removeItemFromCart function from the CartContext
+      console.log("item deleted")
       removeItemFromCart(itemId);
-      // ... Other code for Firebase deletion if needed ...
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }

@@ -1,4 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import {collection,onSnapshot,deleteDoc,addDoc,getDocs,query,where,} from 'firebase/firestore';
+import { useAuth } from './AuthContext';
+import { db } from './firebase';
 
 const CartContext = createContext();
 
@@ -9,29 +12,78 @@ export function useCart() {
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { user } = useAuth(); 
 
-  const addItemToCart = (item) => {
-    setCartItems((prevCartItems) => [...prevCartItems, item]);
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + parseFloat(item.price));
+  // Define cartItemsRef here
+  const cartItemsRef = user
+    ? collection(db, 'usersCollection', user.uid, 'cartItems')
+    : null;
+
+  useEffect(() => {
+    let unsubscribe;
+
+    const fetchCartItems = async () => {
+      if (user && cartItemsRef) {
+        const cartItemsQuery = query(cartItemsRef);
+
+        try {
+          const querySnapshot = await getDocs(cartItemsQuery);
+          const items = [];
+          let totalPrice = 0;
+
+          querySnapshot.forEach((doc) => {
+            const item = doc.data();
+            items.push({ id: doc.id, ...item });
+            totalPrice += parseFloat(item.price);
+          });
+
+          setCartItems(items);
+          setTotalPrice(totalPrice);
+        } catch (error) {
+          console.error('Error fetching cart items:', error);
+        }
+      }
+    };
+
+    if (user && cartItemsRef) {
+      fetchCartItems(); // Fetch cart items when the user is authenticated
+
+      unsubscribe = onSnapshot(cartItemsRef, () => {
+        // This listener updates the cart when changes occur in Firestore
+        fetchCartItems();
+      });
+    }
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [user, cartItemsRef]); // Include cartItemsRef as a dependency
+
+  const addItemToCart = async (item) => {
+    try {
+      if (user && cartItemsRef) {
+        await addDoc(cartItemsRef, item);
+      }
+    } catch (error) {
+      console.error('Error adding cart item:', error);
+    }
   };
 
-  const removeItemFromCart = (itemId) => {
-    const itemToRemove = cartItems.find((item) => item.id === itemId);
+  const removeItemFromCart = async (itemId) => {
+    try {
+      if (user && cartItemsRef) {
+        const queryCartItem = query(cartItemsRef, where('id', '==', itemId));
+        const querySnapshot = await getDocs(queryCartItem);
 
-    if (itemToRemove) {
-      if (itemToRemove.quantity > 1) {
-        // If the item's quantity is greater than 1, decrease it
-        const updatedCartItems = cartItems.map((item) =>
-          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
-        );
-        setCartItems(updatedCartItems);
-      } else {
-        // If the item's quantity is 1, remove it from the cart
-        const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-        setCartItems(updatedCartItems);
+        if (!querySnapshot.empty) {
+          const docToRemove = querySnapshot.docs[0];
+          await deleteDoc(docToRemove.ref);
+        }
       }
-
-      setTotalPrice((prevTotalPrice) => prevTotalPrice - parseFloat(itemToRemove.price));
+    } catch (error) {
+      console.error('Error deleting cart item:', error);
     }
   };
 

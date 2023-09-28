@@ -7,7 +7,7 @@ import { AiFillHome } from "react-icons/ai"
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { useAuth } from '../AuthContext';
 import { db } from '../firebase';
-import { collection, addDoc, onSnapshot } from 'firebase/firestore';
+import { collection,  onSnapshot } from 'firebase/firestore';
 import { toast, Toaster } from "react-hot-toast";
 const Navbar = () => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -50,7 +50,7 @@ const Navbar = () => {
       setIsLoggedIn(false);
       setCartItemsCount(0);
     }
-  }, [db, user]);
+  }, [ user]);
 
 
   const handleLogout = () => {
@@ -75,7 +75,6 @@ const Navbar = () => {
             <li><Link to='/'><AiFillHome size={20} /> <span>Home</span></Link></li>
             {isLoggedIn ? (
               <>
-                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
                 <li className="cart-icon">
                   <Link to='/cartItems'>
                     <div className="cart-icon-container">
@@ -85,6 +84,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li><Link to="/profile" >Profile</Link></li>
+                <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
               </>
             ) : (
               <>
