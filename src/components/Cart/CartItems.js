@@ -2,7 +2,7 @@ import './CartItems.css';
 import { MdRemoveShoppingCart } from 'react-icons/md';
 import { FaRupeeSign } from 'react-icons/fa';
 import { useCart } from '../CartContext';
-
+import { Link } from 'react-router-dom';
 export default function CartItems() {
   const { cartItems,totalPrice, removeItemFromCart } = useCart(); // Use values from the context
 
@@ -41,7 +41,9 @@ export default function CartItems() {
           Total Price: <FaRupeeSign size={15} />
           {totalPrice}
         </p>
-        <button className='btn btn-primary'>Buy Now</button>
+        <Link to='/Placeorder'>
+          <button className='btn btn-primary'>Buy Now</button>
+        </Link>
       </div>
     </div>
   );

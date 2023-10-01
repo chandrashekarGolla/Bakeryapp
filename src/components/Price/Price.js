@@ -98,6 +98,7 @@ export default function Price() {
         image,
         price,
         name,
+        deliveryDate,
         quantity: 1,
       };
       

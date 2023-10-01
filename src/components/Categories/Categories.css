@@ -14,4 +14,12 @@
 
   }
 
+  .enlarge-image {
+    transform: scale(1); 
+    transition: transform 0.3s ease; 
+  }
+  
+  .enlarge-image:hover {
+    transform: scale(1.05);
+  } 
 

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {collection,onSnapshot,deleteDoc,addDoc,getDocs,query,where,} from 'firebase/firestore';
 import { useAuth } from './AuthContext';
-import { db } from './firebase';
+import { db } from './firebase.mjs';
 
 const CartContext = createContext();
 

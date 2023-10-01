@@ -8,6 +8,8 @@ import OrderPage from './components/Order/OrderPage';
 import CategoryItems from './components/CategoryItems/CategoryItems';
 import Categories from './components/Categories/Categories';
 import Login from './components/Login/Login';
+import PlaceOrder from './components/Placeorder';
+
 // import Signup from './components/UserSignup/Signup'
 // import Signin from './components/UserSignin/Signin'
 function App() {
@@ -24,6 +26,7 @@ function App() {
             <Route path="/cartItems" element={<CartItems />} />
             <Route path="price/:id" element={<Price />} />
             <Route path="/orderpage" element={<OrderPage />} />
+            <Route path="/Placeorder" element={<PlaceOrder />} />
             <Route path="/categoryItems/:categoryType" element={<CategoryItems />} /> 
             <Route path="/:categoryType" component={<Categories />} />
           </Route>

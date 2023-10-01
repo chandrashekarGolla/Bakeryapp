@@ -29,6 +29,7 @@ const Categories = () => {
                   <Link to={`/categoryItems/${obj.type}`}>
                     <img
                       src={obj.path}
+                      className='enlarge-image'
                       alt='not available'
                       title={obj.type}
                       style={{
