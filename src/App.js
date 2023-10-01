@@ -9,9 +9,6 @@ import CategoryItems from './components/CategoryItems/CategoryItems';
 import Categories from './components/Categories/Categories';
 import Login from './components/Login/Login';
 import PlaceOrder from './components/Placeorder';
-
-// import Signup from './components/UserSignup/Signup'
-// import Signin from './components/UserSignin/Signin'
 function App() {
   return (
     <div className="App">
@@ -19,9 +16,6 @@ function App() {
         <Routes>
           <Route path="/" element={<RootLayout />}>
             <Route path="/" element={<Home />} />
-            {/*These routes for user signin signup using email */}
-            {/* <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin />} /> */}
             <Route path="/login" element={<Login/>} />
             <Route path="/cartItems" element={<CartItems />} />
             <Route path="price/:id" element={<Price />} />

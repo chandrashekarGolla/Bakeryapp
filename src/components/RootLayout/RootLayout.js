@@ -4,9 +4,6 @@ import { Outlet } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Contactus from '../ContactUs/Contactus'
 import './RootLayout.css'
-// import Distance from './Distance'
-// import Map from './Map'
-// import OrderPage from './Order/OrderPage'
 function RootLayout() {
 
   return (
@@ -14,12 +11,7 @@ function RootLayout() {
       <Navbar/>
       <Outlet />
       <Contactus/>
-       <div>
-       <Footer/>
-       </div>
-       {/* <Distance/> */}
-      {/* <Map/> */}
-      {/* <OrderPage/> */}
+      <Footer/>
     </div>
   )
 }

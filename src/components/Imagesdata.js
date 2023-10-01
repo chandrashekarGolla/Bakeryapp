@@ -43,7 +43,7 @@ const imagesinfo=[
     {id:42,path:'../Images/BlueberryPlaincake.jpeg',name:'Blueberry Plain Cake',price:'400',type:'Cake'},
     {id:43,path:'../Images/AlmondPlaincake.jpeg',name:'Blueberry Cheese Cake',price:'600',type:'Cake'},
     {id:44,path:'../Images/CheesePlaincake.jpeg',name:'Plum Cake(No alcohol)',price:'600',type:'Cake'},
-    {id:44,path:'../Images/CheesePlaincake.jpeg',name:'Mango Cake',price:'400',type:'Cake'},
+    {id:45,path:'../Images/CheesePlaincake.jpeg',name:'Mango Cake',price:'400',type:'Cake'},
 
 ]
 export default imagesinfo

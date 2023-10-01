@@ -1,25 +1,36 @@
-.category{
-	margin-top: 100px;
-	/* background-image: url('../Images/cakebg.png'); */
-	background-color: #f2f1f6;
-      
+.category {
+  margin-top: 100px;
+  background-color: #f2f1f6;
+}
+
+.category .card-item {
+   background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 50px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 }
 
 
-.category .card-item{
-    background-color: white;
-    border-radius:10px;
-    width:350px;
-	margin-top:50px;
-
+.card-item img {
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: cover;
+  border-radius: 10px; 
+}
+@media (max-width:767px) {
+    
+  .card-items:hover {
+    transform: scale(1.1);
   }
-
-  .enlarge-image {
-    transform: scale(1); 
-    transition: transform 0.3s ease; 
-  }
-  
-  .enlarge-image:hover {
-    transform: scale(1.05);
-  } 
-
+   .row {
+     margin-left: 0; 
+     justify-content: center;
+   }
+   .col {
+     margin: 10px auto; 
+   }
+ }

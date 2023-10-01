@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
-import logo from '../Images/logo.jpeg';
-import { FaBars } from 'react-icons/fa';
+import { Link,NavLink } from 'react-router-dom';
+import {HiMenu} from 'react-icons/hi'
 import { AiFillHome } from 'react-icons/ai';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
 import { useAuth } from '../AuthContext';
-import { useCart } from '../CartContext'; // Import the useCart hook
+import { useCart } from '../CartContext';
 import { toast, Toaster } from 'react-hot-toast';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { user, logout } = useAuth();
-  const { cartItems } = useCart(); // Use cartItems from the CartContext
-
+  const { cartItems } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
   const handleLogout = () => {
     logout();
   };
@@ -27,29 +26,23 @@ const Navbar = () => {
   }, [user]);
 
   return (
-    <header>
+    <div className='navbar-container'>
+      <nav>
       <Toaster toastOptions={{ duration: 3000 }} />
-      <div>
-        <Link to="/">
-          <img src={logo} alt="logo" className="logo m-0" />
+        <>
+        <Link to="/" className="title">
+          Sudhas Bakers
         </Link>
-      </div>
-      <input type="checkbox" id="menu-bar"></input>
-      <label htmlFor="menu-bar">
-        <FaBars size={20} />
-      </label>
-      <h6 className="">
-        Welcome to Sudha Bakers <br></br> From our Oven to your door
-      </h6>
-      <div>
-        <nav className="navbar">
-          <ul>
-            <li>
-              <Link to="/">
-                <AiFillHome size={20} /> <span>Home</span>
-              </Link>
-            </li>
-            {isLoggedIn ? (
+        <h6 className=''>Welcome to Sudha Bakers <br></br>
+          From our Oven to your door
+        </h6>
+        </>
+        <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
+         <NavLink><HiMenu size={25}/></NavLink>
+        </div>
+        <ul className={menuOpen ? "open" : ""}>
+        <li><NavLink to="/" ><AiFillHome/>Home</NavLink></li>
+        {isLoggedIn ? (
               <>
                 <li className="cart-icon">
                   <Link to="/cartItems">
@@ -91,10 +84,10 @@ const Navbar = () => {
                 </li>
               </>
             )}
-          </ul>
-        </nav>
+            </ul>
+      </nav>
       </div>
-    </header>
+    
   );
 };
 

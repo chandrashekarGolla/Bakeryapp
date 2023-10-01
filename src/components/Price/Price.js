@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaRupeeSign } from "react-icons/fa";
 import { HiOutlineShoppingCart, HiPlus, HiMinus } from "react-icons/hi";
@@ -7,14 +7,11 @@ import { toast, Toaster } from "react-hot-toast";
 import "./Price.css";
 import { useAuth } from "../AuthContext";
 import { useCart } from "../CartContext";
-import { collection, doc, getDoc, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase';
 export default function Price() {
 
   const [eggless, setEggless] = useState(false);
   const [deliveryDate, setDeliveryDate] = useState("");
-  const [itemadded, setItemStatus] = useState(false);
-  const location = useLocation();
+   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const image = searchParams.get("image");
   const price = searchParams.get("price");
@@ -25,8 +22,7 @@ export default function Price() {
   let [totalPrice, setTotalPrice] = useState(price);
 
   const { user } = useAuth();
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-  const { addItemToCart } = useCart();
+   const { addItemToCart } = useCart();
   const navigate = useNavigate();
 
   const [mainImage, setMainImage] = useState(image);
@@ -342,7 +338,7 @@ export default function Price() {
             </div>
             <div className="col-sm-6 col-md-7 col-lg-7">
               <h5 className="fs-2 p-2">{name}</h5>
-              {(type === "Chocolate")||(type === "Icecream") && (
+              {(type === "Chocolate")||(type === "Icecream")||(type==='Biscuit') && (
                 <div>
                   <p className="fs-6 fw-bold p-2">Select Weight</p>
                   <div className="weight-control ">

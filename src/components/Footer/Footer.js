@@ -12,31 +12,14 @@
 //           <li>About Us</li>
 //           <li>Contact Us</li>
 //         </ul>
-//       </div>
-//       <div className='right-section'>
-//         <address>
-//           <h6>Flat No T-3</h6>
-//           <h6>Sai Manasa Residency</h6>
-//           <h6>Anand Rao Nagar, Old Alwal</h6>
-//           <h6>Secunderabad, Telangana 500010</h6>
-//         </address>
-//       </div>
-//       <div>
-//         Find us at
-//         @sudhas_bakers
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Footer;
 import React from 'react';
 import './Footer.css';
 import { FaInstagram, FaEnvelope } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <div className='footer-container'>
+            <footer className="footer ">
             <div className="left-content">
                 <div className="logo">Sudhas Bakers</div>
             </div>
@@ -50,7 +33,7 @@ const Footer = () => {
             <div className="right-content">
                 <div>
                 <a href="https://www.instagram.com/sudhas_bakers" target="_blank" rel="noopener noreferrer">
-                    <FaInstagram className="icon" />
+                    <FaInstagram className="icon" />sudhas_bakers
                 </a>
                 </div>
                 <div>
@@ -61,6 +44,8 @@ const Footer = () => {
                 </div>
             </div>
         </footer>
+        </div>
+        
     );
 }
 

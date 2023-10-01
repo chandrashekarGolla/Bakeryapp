@@ -25,12 +25,21 @@
    */
 /* Styles for the footer (Footer.css) */
 /* Styles for the footer (Footer.css) */
+.footer-container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  min-height: 35vh;
+
+}
 .footer {
   background-color: #f8f9fa;
   padding: 20px;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  text-align: center;
+
 }
 
 .left-content,

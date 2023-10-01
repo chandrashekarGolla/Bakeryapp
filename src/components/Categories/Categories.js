@@ -19,7 +19,7 @@ const Categories = () => {
   ];
 
   return (
-    <div>
+    <div className='container'>
       <div className='category mt-4'>
         <div className='row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 ml-2 p-3'>
           {imagesData.map((obj) => (
