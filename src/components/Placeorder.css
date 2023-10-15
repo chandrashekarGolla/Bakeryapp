@@ -1,35 +1,36 @@
 /* PlaceOrder.css */
 
 .place-order-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
   
-  .order-item {
-    margin-bottom: 10px;
-  }
+.order-item {
+  margin-bottom: 10px;
+}
   
-  .total-price {
-    font-weight: bold;
-    margin-top: 20px;
-  }
+.total-price {
+  font-weight: bold;
+  margin-top: 20px;
+}
   
-  .form-label,
-  .form-control {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+.form-label,
+.form-control {
+  width: 100%;
+  margin-bottom: 10px;
+}
   
-  .place-order-btn,
+.place-order-btn,
   .confirm-order-btn {
     width: 100%;
     margin-top: 10px;
-  }
+}
   
-  @media (min-width: 768px) {
-    .place-order-container {
-      padding: 40px;
-    }
+@media (min-width: 768px) {
+  .place-order-container {
+    padding: 40px;
   }
+}
   

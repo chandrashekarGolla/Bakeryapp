@@ -62,7 +62,7 @@ nav .menu {
 	display: inline-block;
   }
   
- .cart-count {
+.cart-count {
 	position: absolute;
 	top: -8px;
 	right: -8px;
@@ -131,5 +131,5 @@ nav .menu svg {
 	  top: -10px; 
 	  right: -10px; 
 	}
-  }
+}
 

@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <App/>
   <React.StrictMode>
-  <AuthProvider> {/* Wrap your entire app with AuthProvider */}
+  <AuthProvider>
     <CartProvider> <App />
     </CartProvider>
    

@@ -44,6 +44,10 @@ const imagesinfo=[
     {id:43,path:'../Images/AlmondPlaincake.jpeg',name:'Blueberry Cheese Cake',price:'600',type:'Cake'},
     {id:44,path:'../Images/CheesePlaincake.jpeg',name:'Plum Cake(No alcohol)',price:'600',type:'Cake'},
     {id:45,path:'../Images/CheesePlaincake.jpeg',name:'Mango Cake',price:'400',type:'Cake'},
+    {id:46,path:'../Images/RedvelvetCupcake.jpeg',name:'Assorted Fruit Cake',price:'900',type:'SpecialCake'},
+    {id:47,path:'../Images/RedvelvetCupcake.jpeg',name:'Rasmalai Cake',price:'1050',type:'SpecialCake'},
+    {id:48,path:'../Images/RedvelvetCupcake.jpeg',name:'Mangoram Cake',price:'600',type:'SpecialCake'},
+    {id:49,path:'../Images/RedvelvetCupcake.jpeg',name:'French Opera Cake',price:'500',type:'SpecialCake'},
 
 ]
 export default imagesinfo

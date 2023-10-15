@@ -18,7 +18,6 @@
 
 @media (max-width: 768px) {
     .carousel-container .carousel-item {
-      /* Hide carousel items on larger screens */
       width:370px;
       height:370px;
       border-radius:30px;

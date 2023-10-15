@@ -5,11 +5,10 @@ import { useCart } from '../CartContext';
 import { Link } from 'react-router-dom';
 import cartImg from '../Images/emptycart.png'
 export default function CartItems() {
-  const { cartItems, totalPrice, removeItemFromCart } = useCart(); // Use values from the context
+  const { cartItems, totalPrice, removeItemFromCart } = useCart(); 
 
   const handleDeleteItem = async (itemId) => {
     try {
-      // Call the removeItemFromCart function from the CartContext
       console.log("item deleted")
       removeItemFromCart(itemId);
     } catch (error) {

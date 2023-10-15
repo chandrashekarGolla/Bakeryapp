@@ -14,7 +14,6 @@ export function CartProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const { user } = useAuth(); 
 
-  // Define cartItemsRef here
   const cartItemsRef = user
     ? collection(db, 'usersCollection', user.uid, 'cartItems')
     : null;
@@ -46,10 +45,10 @@ export function CartProvider({ children }) {
     };
 
     if (user && cartItemsRef) {
-      fetchCartItems(); // Fetch cart items when the user is authenticated
+      fetchCartItems(); // to fetch cart items when the user is authenticated
 
       unsubscribe = onSnapshot(cartItemsRef, () => {
-        // This listener updates the cart when changes occur in Firestore
+        // to updte cart items
         fetchCartItems();
       });
     }
@@ -59,7 +58,7 @@ export function CartProvider({ children }) {
         unsubscribe();
       }
     };
-  }, [user, cartItemsRef]); // Include cartItemsRef as a dependency
+  }, [user, cartItemsRef]);
 
   const addItemToCart = async (item) => {
     try {
@@ -89,12 +88,11 @@ export function CartProvider({ children }) {
   const clearCart = async () => {
     try {
       if (user && cartItemsRef) {
-        // Delete all documents from the cart collection in Firestore
+        // To delete all documents from the cart collection
         const querySnapshot = await getDocs(cartItemsRef);
         querySnapshot.forEach(async (doc) => {
           await deleteDoc(doc.ref);
         });
-        // Reset cartItems state to an empty array
         setCartItems([]);
         setTotalPrice(0);
       }

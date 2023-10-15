@@ -53,11 +53,11 @@
     margin-top: 10px;
   }
   
-  .additional-image {
+.additional-image {
     width: 100px;
     height: 100px;
     object-fit: contain;
     margin-bottom: 10px;
     cursor: pointer;
-  }
+}
   

@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signOut, signInWithPhoneNumber } from 'firebase/auth';
 import { db } from './firebase.mjs';

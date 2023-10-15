@@ -7,6 +7,7 @@ import './CategoryItems.css'
 function CategoryItems() {
 
   const { categoryType } = useParams();
+
   const categoryData = imagesinfo.filter((item) => item.type === categoryType);
 
   return (

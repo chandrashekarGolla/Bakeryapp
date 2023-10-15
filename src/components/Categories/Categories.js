@@ -6,6 +6,7 @@ import cake from '../Images/cake.jpeg';
 import Icecream from '../Images/Icecream.jpeg';
 import Pastry from '../Images/Pastry.jpeg';
 import Chocolate from '../Images/Chocolate.jpeg';
+import ThemedCakes from '../ThemedCakes/ThemedCakes'
 import './Categories.css';
 
 const Categories = () => {
@@ -47,6 +48,7 @@ const Categories = () => {
         </div>
       </div>
       <Outlet />
+      {/* <ThemedCakes/> */}
     </div>
   );
 };

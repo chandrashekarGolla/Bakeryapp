@@ -38,7 +38,7 @@ const Login = () => {
   //   const querySnapshot = await getDocs(q);
 
   //   if (querySnapshot.empty) {
-  //     // Mobile number doesn't exist, create a new user document
+  //     // Mobile number doesn't exist, creating  a new user document
   //     try {
   //       const docRef = await addDoc(usersCollectionRef, {
   //         name: name,
@@ -59,7 +59,7 @@ const Login = () => {
     e.preventDefault();
   
     if (!validatePhoneNumber(mobile)) {
-      toast.error('Invalid phone number. Please enter a valid Indian mobile number.');
+      toast.error('Invalid phone number. Please enter a valid mobile number.');
       return;
     }
   
@@ -73,18 +73,18 @@ const Login = () => {
     const querySnapshot = await getDocs(q);
   
     if (!querySnapshot.empty) {
-      // Mobile number exists, check if the username matches
+      // Mobile number exists, and checking  if the username matches
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
   
       if (userData.name === name) {
-        // Username matches, continue with sending OTP
+        // If Username matches, continue with sending OTP
         configureCaptcha();
       } else {
         toast.error('Invalid username. Please enter the correct username.');
       }
     } else {
-      // Mobile number doesn't exist, create a new user document
+      // Mobile number doesn't exist, creating  a new user document
       try {
         const docRef = await addDoc(usersCollectionRef, {
           name: name,
@@ -143,7 +143,7 @@ const Login = () => {
         const user = auth.currentUser;
 
         if (user) {
-          // User is successfully authenticated; you can add them to the usersCollection.
+          // User is authenticated and to add to the usersCollection.
           try {
             const usersCollectionRef = collection(db, 'usersCollection');
             const q = query(usersCollectionRef, where('phoneNumber', '==', mobile));
@@ -181,7 +181,7 @@ const Login = () => {
           <div className="otp-form mt-5">
             <h2>Enter OTP</h2>
             <form onSubmit={onSubmitOTP}>
-              <input type="number" name="otp" placeholder="OTP Number" required value={otp} onChange={(e) => setOtp(e.target.value)} />
+              <input type="text" name="otp" placeholder="OTP Number" required value={otp} onChange={(e) => setOtp(e.target.value)} />
               <button className="btn btn-success mx-auto ml-3 " type="submit">
                 Submit
               </button>
@@ -195,7 +195,7 @@ const Login = () => {
             <div id="sign-in-button"></div>
             <input type="text" name="name" placeholder="Name" required value={name} onChange={(e) => setName(e.target.value)} />
             <input
-              type="number"
+              type="text"
               name="mobile"
               placeholder="Mobile number"
               required

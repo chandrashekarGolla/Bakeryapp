@@ -1,5 +1,5 @@
 .login-page{
-  background-image: url('../Images/bg-5.jpg'); 
+  /* background-image: url('../Images/bg-5.jpg');  */
   background-size:cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -8,37 +8,37 @@
 }
 
 .login-container {
-    width:400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  width:400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
     
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
   
 
 .login-form input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
     
-  }
+}
   
 
 .login-form button {
-    padding: 10px;
-    background-color: #4caf50;
-    /* color: #fff; */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  padding: 10px;
+  background-color: #4caf50;
+  /* color: #fff; */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 .otp-form input {
     margin-bottom: 10px;
@@ -48,12 +48,12 @@
   }
 
 .otp-form button {
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
   
 }
   
