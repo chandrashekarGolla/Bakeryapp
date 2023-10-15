@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Contactus.css';
-import { Link } from 'react-router-dom';
 import {BsFillChatDotsFill} from 'react-icons/bs'
 const Contactus = () => {
   const [showContactInfo, setShowContactInfo] = useState(false);

@@ -20,11 +20,68 @@ export default function PlaceOrder() {
     email: '',
     address: '',
   });
+
+  
+
+  const loadScript = (src) => {
+
+    return new Promise((resolve) => {
+      const script = document.createElement('script')
+      script.src = src
+
+      script.onload = () => {
+        resolve(true)
+      }
+
+      script.onerror = () => {
+        resolve(true)
+      }
+
+      document.body.appendChild(script)
+
+    })
+
+  }
+  const displayRazorpay = async (amount) => {
+    
+
+
+    const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+
+    if (!res) {
+      alert('you are offline... failed to load Razorpay SDK')
+      return
+    }
+
+    const options = {
+      key: 'rzp_test_hg3pqAnopQivqF',
+      currency: 'INR',
+      amount: amount * 100,
+      name: "Chandu",
+      description: "Thanks for purchasing",
+      //  image: {img},
+
+      handler: function (response) {
+        alert(response.razorpay_payment_id)
+        alert("payment is successfull")
+      },
+
+      prefill: {
+        name: "Chandu"
+      }
+      //if(response.razorpay_payment_id)
+    };
+    const paymentObj = new window.Razorpay(options)
+    paymentObj.open()
+
+  }
+
   const handlePlaceOrder = () => {
     setIsPlacingOrder(true);
+    displayRazorpay(totalPrice + totalPrice * 0.02);
   };
 
-  const handleConfirmOrder = async () => {
+  const handleConfirmOrder = async (paymentId) => {
 
     let errors = {};
 
@@ -51,6 +108,7 @@ export default function PlaceOrder() {
         name: formData.name,
         email: formData.email,
         address: formData.address,
+        paymentId: paymentId,
       });
      console.log("email sent")
      toast.success('Order placed successfully');
@@ -76,7 +134,8 @@ export default function PlaceOrder() {
           <p>Delivery Date: {item.deliveryDate}</p>
         </div>
       ))}
-      <p className="total-price">Total Price:Rs {totalPrice}</p>
+      <p>Additional Charges:Rs{totalPrice*0.02}</p>
+      <p className="total-price">Total Price:Rs {totalPrice+totalPrice*0.02}</p>
 
       {!isPlacingOrder && (
          <button type="button" className="btn btn-primary place-order-btn" onClick={handlePlaceOrder}>

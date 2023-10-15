@@ -14,13 +14,17 @@ export default function Price() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const image = searchParams.get("image");
-  const price = searchParams.get("price");
+  const price = parseFloat(searchParams.get("price"));
   const name = searchParams.get("name");
   const type = searchParams.get("type");
   const initialWeight = getInitialWeight();
   const [weight, setWeight] = useState(initialWeight);
-  let [totalPrice, setTotalPrice] = useState(price);
-
+  let [totalPrice, setTotalPrice] = useState(
+    type === "Cupcake" ? price * 4 : price
+  );
+  
+  
+  
   const { user } = useAuth();
   const { addItemToCart } = useCart();
   const navigate = useNavigate();
@@ -65,7 +69,8 @@ export default function Price() {
       console.error(error);
     }
   };
-
+  
+  
 
   //to display side images for main image
   const additionalImages = [
@@ -109,7 +114,7 @@ export default function Price() {
     if (newWeight <= initialWeight)
       newWeight = initialWeight
     if (type === "Cupcake") {
-      if (newWeight <= 4)
+      if (newWeight < 4)
         newWeight = 4;
       else
         newWeight += 2;
@@ -126,16 +131,39 @@ export default function Price() {
     if (newWeight <= initialWeight)
       newWeight = initialWeight
     else if (type === "Cupcake") {
-      if (newWeight <= 4)
-        newWeight = 4;
-      else
-        newWeight -= 2;
+      newWeight=Math.max(4,newWeight-2);
     }
     else {
       newWeight -= 250;
     }
     setWeight(newWeight);
     setTotalPrice(calculateTotalPrice(price, newWeight, eggless));
+  };
+
+  const calculateTotalPrice = (price, weight, eggless = false) => {
+    if (type === 'Cupcake') {
+      totalPrice = price*weight;
+    }
+    else {
+      totalPrice = Math.ceil((price) * (weight) / initialWeight);
+    }
+    if (eggless) {
+      if (type === 'Cupcake') {
+        totalPrice += 10
+      };
+      if (type === 'Biscuit')
+        totalPrice += 50
+      if (type === 'Pastry')
+        totalPrice += 100;
+      if (type === 'Cake' && name === 'Brownies')
+        totalPrice += 25
+      else if (type === 'Cake' && (name === 'Blueberry Cheese Cake' || name === 'Plum Cake(No alcohol)')) {
+        totalPrice += 100
+      }
+
+
+    }
+    return totalPrice;
   };
 
   const handleEgglessChange = (event) => {
@@ -165,34 +193,8 @@ export default function Price() {
   } else {
     minDeliveryDate.setDate(minDeliveryDate.getDate());
   }
-
-  const calculateTotalPrice = (price, weight, eggless = false) => {
-    if (type === 'Cupcake') {
-      var temp = (price) * (weight);
-      totalPrice = temp;
-    }
-    else {
-      var temp = Math.ceil((price) * (weight) / initialWeight);
-      totalPrice = temp;
-    }
-    if (eggless) {
-      if (type === 'Cupcake') {
-        totalPrice += 10
-      };
-      if (type === 'Biscuit')
-        totalPrice += 50
-      if (type === 'Pastry')
-        totalPrice += 100;
-      if (type === 'Cake' && name === 'Brownies')
-        totalPrice += 25
-      else if (type === 'Cake' && (name === 'Blueberry Cheese Cake' || name === 'Plum Cake(No alcohol)')) {
-        totalPrice += 100
-      }
-
-
-    }
-    return totalPrice;
-  };
+  
+  
   const loadScript = (src) => {
 
     return new Promise((resolve) => {
@@ -254,9 +256,9 @@ export default function Price() {
 
   }
 
-  const handleOrderClick = () => {
-    navigate(`/orderpage?price=${price}`);
-  };
+  // const handleOrderClick = () => {
+  //   navigate(`/orderpage?price=${price}`);
+  // };
 
   return (
     <div className="container">
@@ -268,7 +270,7 @@ export default function Price() {
               <Toaster toastOptions={{ duration: 3000 }} />
               <div className="additional-images">
                 {additionalImages.map((image, index) => (
-                  <img key={index} className="additional-image" src={image} alt={`Additional Image ${index + 1}`}
+                  <img key={index} className="additional-image" src={image} alt={`AdditionalImage ${index + 1}`}
                     onClick={() => handleImageClick(image)}
                   />
                 ))}
@@ -284,7 +286,7 @@ export default function Price() {
             </div>
             <div className="col-sm-6 col-md-7 col-lg-7">
               <h5 className="fs-2 p-2">{name}</h5>
-              {((type === "Chocolate") || (type === "Icecream") || (type === 'Biscuit') )&& (
+              {((type === "Chocolate") || (type === "Icecream") || (type === 'Biscuit' && name!=="Chocolate Cookie") )&& (
                 
                 <div>
                   <p className="fs-6 fw-bold p-2">Select Weight</p>
@@ -299,7 +301,7 @@ export default function Price() {
                   </div>
                 </div>
               )}
-              {((type === "Cake") || (type === 'Pastry') || (type === 'Cupcake') || (type === "Biscuit" && name === "Chocolate Cookie")) && (
+              {((type === "Cake") || (type === 'Pastry') || (type === 'Cupcake') || ((type === "Biscuit" && name === "Chocolate Cookie"))) && (
                 <div>
                   <p className="fs-6 fw-bold p-2">
                     {type === "Cupcake" ? "Select Number of Cupcakes" : "Select Weight"}

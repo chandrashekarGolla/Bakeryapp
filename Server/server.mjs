@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/place-order', async (req, res) => {
-  const { userId, items, totalPrice, name, email, address } = req.body;
+  const { userId, items, totalPrice, name, email, address,paymentId } = req.body;
 
   try {
     // Storing order details in database
@@ -23,12 +23,13 @@ app.post('/place-order', async (req, res) => {
       name,
       email,
       address,
+      paymentId,
       timestamp: new Date(),
     });
-    console.log(items)
+   
     const itemsData = items.map(item => `Name: ${item.name}\nPrice: Rs${item.price}\nDelivery Date: ${item.deliveryDate}\n\n`);
     const mailContent = `Thank you for choosing Sudhas Bakers!\n\n
-                         Your order has been confirmed.\nOrder ID: ${docRef.id}\n\n` +
+                         Your order has been confirmed.\nOrder ID: ${docRef.id}\n\nPayment ID: ${paymentId}\n\n` +
                        `Order Details:\n${itemsData}\nTotal Price: Rs ${totalPrice}\nAddress:${address}`;
 
     // Sending email to user and admin 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { FaRupeeSign } from 'react-icons/fa';
 import imagesinfo from '../Imagesdata'
 import { Link } from 'react-router-dom';

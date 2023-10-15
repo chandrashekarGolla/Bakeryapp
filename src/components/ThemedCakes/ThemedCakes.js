@@ -1,6 +1,5 @@
 import React from 'react'
-import CategoryItems from '../CategoryItems/CategoryItems'
-import { Outlet } from 'react-router-dom'
+
 
 function ThemedCakes() {
   return (
