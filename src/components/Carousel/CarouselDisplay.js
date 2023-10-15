@@ -7,8 +7,8 @@ import './CarouselDisplay.css'
 import { Link } from 'react-router-dom';
 function CarouselDisplay() {
   return (
-    <div className='container mt-5 '>
-       <Carousel className='carousel d-block mt-5'>
+    <div className='carousel-container'>
+       <Carousel className='carousel d-block '>
         <Carousel.Item interval={1500}>
           <div className='d-flex carousel-item'>
             <Link to='/categoryItems/Cake'>
@@ -55,3 +55,4 @@ function CarouselDisplay() {
 }
 
 export default CarouselDisplay
+

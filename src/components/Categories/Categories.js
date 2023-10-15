@@ -35,13 +35,12 @@ const Categories = () => {
                       style={{
                         width: '300px',
                         height: '300px',
-                        objectFit: 'cover',
                         borderRadius: '10px',
                       }}
                     />
                   </Link>
                 </div>
-                <h5 className='text-center p-2'>{obj.name}</h5>
+                <h5 className='text-center pt-2'>{obj.name}</h5>
               </div>
             </div>
           ))}

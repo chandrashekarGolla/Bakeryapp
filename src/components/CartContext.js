@@ -86,9 +86,25 @@ export function CartProvider({ children }) {
       console.error('Error deleting cart item:', error);
     }
   };
+  const clearCart = async () => {
+    try {
+      if (user && cartItemsRef) {
+        // Delete all documents from the cart collection in Firestore
+        const querySnapshot = await getDocs(cartItemsRef);
+        querySnapshot.forEach(async (doc) => {
+          await deleteDoc(doc.ref);
+        });
+        // Reset cartItems state to an empty array
+        setCartItems([]);
+        setTotalPrice(0);
+      }
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+    }
+  };
 
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, totalPrice }}>
+    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart,clearCart, totalPrice }}>
       {children}
     </CartContext.Provider>
   );

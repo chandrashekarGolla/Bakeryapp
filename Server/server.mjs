@@ -5,17 +5,17 @@ import cors from "cors"
 import { db } from '../src/components/firebase.mjs';
 import { addDoc, collection } from 'firebase/firestore';
 
-const SENDER_EMAIL = 'chandu.golla9@gmail.com'; // Sender's email address (both sender and admin)
+const SENDER_EMAIL = 'chandu.golla9@gmail.com'; //email address (both sender and admin)
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/api/place-order', async (req, res) => {
+app.post('/place-order', async (req, res) => {
   const { userId, items, totalPrice, name, email, address } = req.body;
 
   try {
-    // Store order details in Firestore
+    // Storing order details in database
     const docRef = await addDoc(collection(db, 'ordersCollection'), {
       userId,
       items,
@@ -25,21 +25,26 @@ app.post('/api/place-order', async (req, res) => {
       address,
       timestamp: new Date(),
     });
+    console.log(items)
+    const itemsData = items.map(item => `Name: ${item.name}\nPrice: Rs${item.price}\nDelivery Date: ${item.deliveryDate}\n\n`);
+    const mailContent = `Thank you for choosing Sudhas Bakers!\n\n
+                         Your order has been confirmed.\nOrder ID: ${docRef.id}\n\n` +
+                       `Order Details:\n${itemsData}\nTotal Price: Rs ${totalPrice}\nAddress:${address}`;
 
-    // Send email to user and admin (using the same sender email)
+    // Sending email to user and admin 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: SENDER_EMAIL,
-        pass: 'bwin cdez azmz ihrh', // Replace with your email password
+        pass: 'bwin cdez azmz ihrh', //  email password
       },
     });
 
     const mailOptions = {
       from: SENDER_EMAIL,
-      to: [email, 'chandu.golla9@gmail.com'], // Replace admin's email
+      to: [email, 'chandu.golla9@gmail.com'], // admin's email
       subject: 'Order Confirmation',
-      text: `Your order has been confirmed. Order ID: ${docRef.id}`,
+      text: mailContent,
     };
 
     await transporter.sendMail(mailOptions);

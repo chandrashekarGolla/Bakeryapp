@@ -173,8 +173,8 @@ const Login = () => {
   };
 
   return (
-    <div className='login-page'> 
-      <div className="login-container mt-5">
+    <div className='login-page ml-2 mr-2 '> 
+      <div className="login-container mt-5 p-3">
       <Toaster toastOptions={{ duration: 3000 }} />
       {showOtp ? (
         <>
@@ -182,7 +182,7 @@ const Login = () => {
             <h2>Enter OTP</h2>
             <form onSubmit={onSubmitOTP}>
               <input type="number" name="otp" placeholder="OTP Number" required value={otp} onChange={(e) => setOtp(e.target.value)} />
-              <button className="btn btn-success mx-auto" type="submit">
+              <button className="btn btn-success mx-auto ml-3 " type="submit">
                 Submit
               </button>
             </form>
@@ -191,7 +191,7 @@ const Login = () => {
       ) : (
         <>
           <h2 className='text-center'>Login</h2>
-          <form className="login-form" onSubmit={handleInitialSubmit}>
+          <form className="login-form " onSubmit={handleInitialSubmit}>
             <div id="sign-in-button"></div>
             <input type="text" name="name" placeholder="Name" required value={name} onChange={(e) => setName(e.target.value)} />
             <input
