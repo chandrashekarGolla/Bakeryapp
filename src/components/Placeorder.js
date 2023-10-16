@@ -21,7 +21,6 @@ export default function PlaceOrder() {
     address: '',
   });
 
-  
 
   const loadScript = (src) => {
 
@@ -34,7 +33,7 @@ export default function PlaceOrder() {
       }
 
       script.onerror = () => {
-        resolve(true)
+        resolve(false)
       }
 
       document.body.appendChild(script)
@@ -52,14 +51,14 @@ export default function PlaceOrder() {
       alert('you are offline... failed to load Razorpay SDK')
       return
     }
+    
 
     const options = {
       key: 'rzp_test_hg3pqAnopQivqF',
       currency: 'INR',
       amount: amount * 100,
-      name: "Chandu",
+      name:'chandu',
       description: "Thanks for purchasing",
-      //  image: {img},
 
       handler: function (response) {
         alert(response.razorpay_payment_id)
@@ -67,9 +66,9 @@ export default function PlaceOrder() {
       },
 
       prefill: {
-        name: "Chandu"
+        name: 'chandu',
       }
-      //if(response.razorpay_payment_id)
+      
     };
     const paymentObj = new window.Razorpay(options)
     paymentObj.open()
@@ -101,6 +100,8 @@ export default function PlaceOrder() {
       return;
     }
     try {
+      console.log(cartItems)
+      console.log(formData)
       const response = await axios.post('http://localhost:3001/place-order', {
         userId: user.uid, 
         items: cartItems,
@@ -108,7 +109,7 @@ export default function PlaceOrder() {
         name: formData.name,
         email: formData.email,
         address: formData.address,
-        paymentId: paymentId,
+        //paymentId: paymentId,
       });
      console.log("email sent")
      toast.success('Order placed successfully');
@@ -129,10 +130,12 @@ export default function PlaceOrder() {
        <h3 className="text-center">Your Items</h3>
       {cartItems.map((item) => (
         <div key={item.id} className="order-item">
-          <p>{item.name}</p>
+          <p className='fs-6 fw-bold'>{item.name}</p>
           <p>Price:Rs {item.price}</p>
           <p>Delivery Date: {item.deliveryDate}</p>
+          <hr/>
         </div>
+        
       ))}
       <p>Additional Charges:Rs{totalPrice*0.02}</p>
       <p className="total-price">Total Price:Rs {totalPrice+totalPrice*0.02}</p>
@@ -146,7 +149,7 @@ export default function PlaceOrder() {
       {isPlacingOrder && (
         <form>
         <div className="mb-3">
-          <label className="form-label">Name</label>
+          <label className="form-label">Name
           <input
             type="text"
             className="form-control"
@@ -154,10 +157,12 @@ export default function PlaceOrder() {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
+          </label>
+          
           {formErrors.name && <div className="text-danger">{formErrors.name}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label className="form-label">Email
           <input
             type="email"
             className="form-control"
@@ -165,16 +170,23 @@ export default function PlaceOrder() {
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
+          </label>
+          
           {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
         </div>
         <div className="mb-3">
-          <label className="form-label">Address</label>
-          <textarea
-            className="form-control"
-            name="address"
-            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-            required
-          ></textarea>
+          <label className="form-label">Address
+          <input
+             type='text'
+             className="form-control"
+             name="address"
+             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+             required 
+          />
+            
+          
+          </label>
+          
           {formErrors.address && <div className="text-danger">{formErrors.address}</div>}
         </div>
 

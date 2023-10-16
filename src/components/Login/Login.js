@@ -78,13 +78,13 @@ const Login = () => {
       const userData = userDoc.data();
   
       if (userData.name === name) {
-        // If Username matches, continue with sending OTP
+        // If Username matches then we will send otp
         configureCaptcha();
       } else {
         toast.error('Invalid username. Please enter the correct username.');
       }
     } else {
-      // Mobile number doesn't exist, creating  a new user document
+      // If Mobile number doesn't exist, creating  a new user document
       try {
         const docRef = await addDoc(usersCollectionRef, {
           name: name,

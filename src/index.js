@@ -8,7 +8,7 @@ import { AuthProvider } from './components/AuthContext';
 import { CartProvider } from './components/CartContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <App/>
+  
   <React.StrictMode>
   <AuthProvider>
     <CartProvider> <App />

@@ -19,12 +19,9 @@ export default function Price() {
   const type = searchParams.get("type");
   const initialWeight = getInitialWeight();
   const [weight, setWeight] = useState(initialWeight);
-  let [totalPrice, setTotalPrice] = useState(
-    type === "Cupcake" ? price * 4 : price
-  );
+  let [totalPrice, setTotalPrice] = useState(type === "Cupcake" ? price * 4 : price);
   
-  
-  
+
   const { user } = useAuth();
   const { addItemToCart } = useCart();
   const navigate = useNavigate();
@@ -48,7 +45,7 @@ export default function Price() {
     }
 
     try {
-      // Create an item object with the item details
+      
       const item = {
         id: Math.floor(Math.random() * 100).toString(),
         image,
@@ -59,11 +56,8 @@ export default function Price() {
       };
 
       console.log(item)
-      // Call the addItemToCart function from the CartContext
+      
       addItemToCart(item);
-
-
-      // Display a success message or provide feedback to the user
       toast.success('Item added to cart');
     } catch (error) {
       console.error(error);
@@ -234,10 +228,10 @@ export default function Price() {
     }
 
     const options = {
-      key: 'rzp_test_hg3pqAnopQivqF',
+      key:   'rzp_test_hg3pqAnopQivqF',
       currency: 'INR',
       amount: amount * 100,
-      name: "koushik",
+      name: "chandu",
       description: "Thanks for purchasing",
       //  image: {img},
 
@@ -247,9 +241,9 @@ export default function Price() {
       },
 
       prefill: {
-        name: "koushik"
+        name:'chandu'
       }
-      //if(response.razorpay_payment_id)
+      
     };
     const paymentObj = new window.Razorpay(options)
     paymentObj.open()
