@@ -56,7 +56,7 @@ const displayRazorpay = async (amount) => {
     }
 
     const options = {
-         key: 'rzp_test_hg3pqAnopQivqF',
+         key: PROCESS.ENV.RAZORPAY_KEY,
          currency: 'INR',
          amount: amount * 100 ,
          name: "koushik",
