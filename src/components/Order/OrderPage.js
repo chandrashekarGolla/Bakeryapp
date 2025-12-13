@@ -59,7 +59,7 @@ const displayRazorpay = async (amount) => {
          key: PROCESS.ENV.RAZORPAY_KEY,
          currency: 'INR',
          amount: amount * 100 ,
-         name: "koushik",
+         name: "Chandra shekar",
          description: "Thanks for purchasing",
         //  image: {img},
 
@@ -69,7 +69,7 @@ const displayRazorpay = async (amount) => {
          },
 
         prefill: {
-            name: "koushik" 
+            name: "Chandra Shekar" 
         }
          //if(response.razorpay_payment_id)
     };
