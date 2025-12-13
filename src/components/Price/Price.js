@@ -250,23 +250,19 @@ export default function Price() {
     }
 
     const options = {
-      key: 'rzp_test_hg3pqAnopQivqF',
-      currency: 'INR',
-      amount: amount * 100,
-      name: "koushik",
-      description: "Thanks for purchasing",
-      //  image: {img},
-
-      handler: function (response) {
-        alert(response.razorpay_payment_id)
-        alert("payment is successfull")
-      },
-
-      prefill: {
-        name: "koushik"
-      }
-      //if(response.razorpay_payment_id)
-    };
+  key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+  currency: "INR",
+  amount: amount * 100,
+  name: "Chandra Shekar",
+  description: "Thanks for purchasing",
+  handler: function (response) {
+    alert(response.razorpay_payment_id);
+    alert("Payment successful");
+  },
+  prefill: {
+    name: "Chandra Shekar",
+  },
+};
     const paymentObj = new window.Razorpay(options)
     paymentObj.open()
 
